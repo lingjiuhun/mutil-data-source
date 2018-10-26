@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cz.mutildatasource.dao.mapper.db1.DeviceMapper">
+    <resultMap id="BaseResultMap" type="com.cz.mutildatasource.entity.Device">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="sn" property="sn" jdbcType="VARCHAR"/>
+        <result column="device_no" property="deviceNo" jdbcType="VARCHAR"/>
+        <result column="tid" property="tid" jdbcType="VARCHAR"/>
+        <result column="device_name" property="deviceName" jdbcType="VARCHAR"/>
+        <result column="enable_time" property="enableTime" jdbcType="BIGINT"/>
+        <result column="main_period" property="mainPeriod" jdbcType="VARCHAR"/>
+        <result column="pl_id" property="plId" jdbcType="VARCHAR"/>
+        <result column="position_num" property="positionNum" jdbcType="VARCHAR"/>
+        <result column="gateway_sn" property="gatewaySn" jdbcType="VARCHAR"/>
+        <result column="device_num" property="deviceNum" jdbcType="VARCHAR"/>
+        <result column="photo" property="photo" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="manufacture" property="manufacture" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        sn,
+        device_no,
+        tid,
+        device_name,
+        enable_time,
+        main_period,
+        pl_id,
+        position_num,
+        gateway_sn,
+        device_num,
+        photo,
+        deleted,
+        manufacture
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from device
+        where  id = #{ id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from device
+        where id =  #{ id,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteBatchByPrimaryKey" parameterType="java.util.List">
+        delete from device
+        where id in
+        <foreach collection="list" item="id" index="index"
+                 open="(" close=")" separator=",">
+         #{ id,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+
+
+    <insert id="insertSelective" parameterType="com.cz.mutildatasource.entity.Device">
+        insert into device
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            id,
+            </if>
+            <if test="sn != null">
+            sn,
+            </if>
+            <if test="deviceNo != null">
+            device_no,
+            </if>
+            <if test="tid != null">
+            tid,
+            </if>
+            <if test="deviceName != null">
+            device_name,
+            </if>
+            <if test="enableTime != null">
+            enable_time,
+            </if>
+            <if test="mainPeriod != null">
+            main_period,
+            </if>
+            <if test="plId != null">
+            pl_id,
+            </if>
+            <if test="positionNum != null">
+            position_num,
+            </if>
+            <if test="gatewaySn != null">
+            gateway_sn,
+            </if>
+            <if test="deviceNum != null">
+            device_num,
+            </if>
+            <if test="photo != null">
+            photo,
+            </if>
+            <if test="deleted != null">
+            deleted,
+            </if>
+            <if test="manufacture != null">
+            manufacture,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+             #{ id,jdbcType= BIGINT },
+            </if>
+            <if test="sn != null">
+             #{ sn,jdbcType= VARCHAR },
+            </if>
+            <if test="deviceNo != null">
+             #{ deviceNo,jdbcType= VARCHAR },
+            </if>
+            <if test="tid != null">
+             #{ tid,jdbcType= VARCHAR },
+            </if>
+            <if test="deviceName != null">
+             #{ deviceName,jdbcType= VARCHAR },
+            </if>
+            <if test="enableTime != null">
+             #{ enableTime,jdbcType= BIGINT },
+            </if>
+            <if test="mainPeriod != null">
+             #{ mainPeriod,jdbcType= VARCHAR },
+            </if>
+            <if test="plId != null">
+             #{ plId,jdbcType= VARCHAR },
+            </if>
+            <if test="positionNum != null">
+             #{ positionNum,jdbcType= VARCHAR },
+            </if>
+            <if test="gatewaySn != null">
+             #{ gatewaySn,jdbcType= VARCHAR },
+            </if>
+            <if test="deviceNum != null">
+             #{ deviceNum,jdbcType= VARCHAR },
+            </if>
+            <if test="photo != null">
+             #{ photo,jdbcType= VARCHAR },
+            </if>
+            <if test="deleted != null">
+             #{ deleted,jdbcType= VARCHAR },
+            </if>
+            <if test="manufacture != null">
+             #{ manufacture,jdbcType= VARCHAR },
+            </if>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER"
+                   keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+
+    <select id="selectByPropertyByPage" resultMap="BaseResultMap"
+            parameterType="com.cz.mutildatasource.entity.DeviceQuery">
+        select
+        <include refid="Base_Column_List"/>
+        from device
+        where 1=1
+        <if test="id != null">
+            AND id =  #{ id,jdbcType= BIGINT }
+        </if>
+        <if test="sn != null">
+            AND sn =  #{ sn,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="deviceNo != null">
+            AND device_no =  #{ deviceNo,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="tid != null">
+            AND tid =  #{ tid,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="deviceName != null">
+            AND device_name =  #{ deviceName,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="enableTime != null">
+            AND enable_time =  #{ enableTime,jdbcType= BIGINT }
+        </if>
+        <if test="mainPeriod != null">
+            AND main_period =  #{ mainPeriod,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="plId != null">
+            AND pl_id =  #{ plId,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="positionNum != null">
+            AND position_num =  #{ positionNum,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="gatewaySn != null">
+            AND gateway_sn =  #{ gatewaySn,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="deviceNum != null">
+            AND device_num =  #{ deviceNum,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="photo != null">
+            AND photo =  #{ photo,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="deleted != null">
+            AND deleted =  #{ deleted,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="manufacture != null">
+            AND manufacture =  #{ manufacture,jdbcType=
+            VARCHAR }
+        </if>
+        ORDER BY id desc
+    </select>
+
+    <select id="selectCountByProperty" resultType="java.lang.Integer"
+            parameterType="Map">
+        select
+        count(1)
+        from device
+        where 1=1
+        <if test="id != null">
+            AND id =  #{ id,jdbcType= BIGINT }
+        </if>
+        <if test="sn != null">
+            AND sn =  #{ sn,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="deviceNo != null">
+            AND device_no =  #{ deviceNo,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="tid != null">
+            AND tid =  #{ tid,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="deviceName != null">
+            AND device_name =  #{ deviceName,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="enableTime != null">
+            AND enable_time =  #{ enableTime,jdbcType= BIGINT }
+        </if>
+        <if test="mainPeriod != null">
+            AND main_period =  #{ mainPeriod,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="plId != null">
+            AND pl_id =  #{ plId,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="positionNum != null">
+            AND position_num =  #{ positionNum,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="gatewaySn != null">
+            AND gateway_sn =  #{ gatewaySn,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="deviceNum != null">
+            AND device_num =  #{ deviceNum,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="photo != null">
+            AND photo =  #{ photo,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="deleted != null">
+            AND deleted =  #{ deleted,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="manufacture != null">
+            AND manufacture =  #{ manufacture,jdbcType=
+            VARCHAR }
+        </if>
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.cz.mutildatasource.entity.Device">
+        <if test="id !=null">
+            update device
+            <set>
+                <if test="id != null">
+                    id =  #{ id,jdbcType= BIGINT },
+                </if>
+                <if test="sn != null">
+                    sn =  #{ sn,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="deviceNo != null">
+                    device_no =  #{ deviceNo,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="tid != null">
+                    tid =  #{ tid,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="deviceName != null">
+                    device_name =  #{ deviceName,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="enableTime != null">
+                    enable_time =  #{ enableTime,jdbcType= BIGINT },
+                </if>
+                <if test="mainPeriod != null">
+                    main_period =  #{ mainPeriod,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="plId != null">
+                    pl_id =  #{ plId,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="positionNum != null">
+                    position_num =  #{ positionNum,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="gatewaySn != null">
+                    gateway_sn =  #{ gatewaySn,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="deviceNum != null">
+                    device_num =  #{ deviceNum,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="photo != null">
+                    photo =  #{ photo,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="deleted != null">
+                    deleted =  #{ deleted,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="manufacture != null">
+                    manufacture =  #{ manufacture,jdbcType=
+                        VARCHAR }
+                </if>
+            </set>
+            where id =  #{ id,jdbcType=BIGINT}
+        </if>
+    </update>
+
+</mapper>

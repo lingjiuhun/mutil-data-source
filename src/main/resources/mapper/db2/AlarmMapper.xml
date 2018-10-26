@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cz.mutildatasource.dao.mapper.db2.AlarmMapper">
+    <resultMap id="BaseResultMap" type="com.cz.mutildatasource.entity.Alarm">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="warn_num" property="warnNum" jdbcType="VARCHAR"/>
+        <result column="device_num" property="deviceNum" jdbcType="VARCHAR"/>
+        <result column="fault_code" property="faultCode" jdbcType="VARCHAR"/>
+        <result column="warn_detail" property="warnDetail" jdbcType="VARCHAR"/>
+        <result column="warn_time" property="warnTime" jdbcType="BIGINT"/>
+        <result column="warn_type" property="warnType" jdbcType="VARCHAR"/>
+        <result column="warn_comment" property="warnComment" jdbcType="VARCHAR"/>
+        <result column="solve_type" property="solveType" jdbcType="VARCHAR"/>
+        <result column="solve_person" property="solvePerson" jdbcType="VARCHAR"/>
+        <result column="solve_time" property="solveTime" jdbcType="BIGINT"/>
+        <result column="solve_status" property="solveStatus" jdbcType="VARCHAR"/>
+        <result column="solve_person_id" property="solvePersonId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        warn_num,
+        device_num,
+        fault_code,
+        warn_detail,
+        warn_time,
+        warn_type,
+        warn_comment,
+        solve_type,
+        solve_person,
+        solve_time,
+        solve_status,
+        solve_person_id
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_alarm
+        where  id = #{ id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_alarm
+        where id =  #{ id,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteBatchByPrimaryKey" parameterType="java.util.List">
+        delete from t_alarm
+        where id in
+        <foreach collection="list" item="id" index="index"
+                 open="(" close=")" separator=",">
+         #{ id,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+
+
+    <insert id="insertSelective" parameterType="com.cz.mutildatasource.entity.Alarm">
+        insert into t_alarm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            id,
+            </if>
+            <if test="warnNum != null">
+            warn_num,
+            </if>
+            <if test="deviceNum != null">
+            device_num,
+            </if>
+            <if test="faultCode != null">
+            fault_code,
+            </if>
+            <if test="warnDetail != null">
+            warn_detail,
+            </if>
+            <if test="warnTime != null">
+            warn_time,
+            </if>
+            <if test="warnType != null">
+            warn_type,
+            </if>
+            <if test="warnComment != null">
+            warn_comment,
+            </if>
+            <if test="solveType != null">
+            solve_type,
+            </if>
+            <if test="solvePerson != null">
+            solve_person,
+            </if>
+            <if test="solveTime != null">
+            solve_time,
+            </if>
+            <if test="solveStatus != null">
+            solve_status,
+            </if>
+            <if test="solvePersonId != null">
+            solve_person_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+             #{ id,jdbcType= BIGINT },
+            </if>
+            <if test="warnNum != null">
+             #{ warnNum,jdbcType= VARCHAR },
+            </if>
+            <if test="deviceNum != null">
+             #{ deviceNum,jdbcType= VARCHAR },
+            </if>
+            <if test="faultCode != null">
+             #{ faultCode,jdbcType= VARCHAR },
+            </if>
+            <if test="warnDetail != null">
+             #{ warnDetail,jdbcType= VARCHAR },
+            </if>
+            <if test="warnTime != null">
+             #{ warnTime,jdbcType= BIGINT },
+            </if>
+            <if test="warnType != null">
+             #{ warnType,jdbcType= VARCHAR },
+            </if>
+            <if test="warnComment != null">
+             #{ warnComment,jdbcType= VARCHAR },
+            </if>
+            <if test="solveType != null">
+             #{ solveType,jdbcType= VARCHAR },
+            </if>
+            <if test="solvePerson != null">
+             #{ solvePerson,jdbcType= VARCHAR },
+            </if>
+            <if test="solveTime != null">
+             #{ solveTime,jdbcType= BIGINT },
+            </if>
+            <if test="solveStatus != null">
+             #{ solveStatus,jdbcType= VARCHAR },
+            </if>
+            <if test="solvePersonId != null">
+             #{ solvePersonId,jdbcType= VARCHAR },
+            </if>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER"
+                   keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+
+    <select id="selectByPropertyByPage" resultMap="BaseResultMap"
+            parameterType="com.cz.mutildatasource.entity.AlarmQuery">
+        select
+        <include refid="Base_Column_List"/>
+        from t_alarm
+        where 1=1
+        <if test="id != null">
+            AND id =  #{ id,jdbcType= BIGINT }
+        </if>
+        <if test="warnNum != null">
+            AND warn_num =  #{ warnNum,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="deviceNum != null">
+            AND device_num =  #{ deviceNum,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="faultCode != null">
+            AND fault_code =  #{ faultCode,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="warnDetail != null">
+            AND warn_detail =  #{ warnDetail,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="warnTime != null">
+            AND warn_time =  #{ warnTime,jdbcType= BIGINT }
+        </if>
+        <if test="warnType != null">
+            AND warn_type =  #{ warnType,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="warnComment != null">
+            AND warn_comment =  #{ warnComment,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="solveType != null">
+            AND solve_type =  #{ solveType,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="solvePerson != null">
+            AND solve_person =  #{ solvePerson,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="solveTime != null">
+            AND solve_time =  #{ solveTime,jdbcType= BIGINT }
+        </if>
+        <if test="solveStatus != null">
+            AND solve_status =  #{ solveStatus,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="solvePersonId != null">
+            AND solve_person_id =  #{ solvePersonId,jdbcType=
+            VARCHAR }
+        </if>
+        ORDER BY id desc
+    </select>
+
+    <select id="selectCountByProperty" resultType="java.lang.Integer"
+            parameterType="Map">
+        select
+        count(1)
+        from t_alarm
+        where 1=1
+        <if test="id != null">
+            AND id =  #{ id,jdbcType= BIGINT }
+        </if>
+        <if test="warnNum != null">
+            AND warn_num =  #{ warnNum,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="deviceNum != null">
+            AND device_num =  #{ deviceNum,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="faultCode != null">
+            AND fault_code =  #{ faultCode,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="warnDetail != null">
+            AND warn_detail =  #{ warnDetail,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="warnTime != null">
+            AND warn_time =  #{ warnTime,jdbcType= BIGINT }
+        </if>
+        <if test="warnType != null">
+            AND warn_type =  #{ warnType,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="warnComment != null">
+            AND warn_comment =  #{ warnComment,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="solveType != null">
+            AND solve_type =  #{ solveType,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="solvePerson != null">
+            AND solve_person =  #{ solvePerson,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="solveTime != null">
+            AND solve_time =  #{ solveTime,jdbcType= BIGINT }
+        </if>
+        <if test="solveStatus != null">
+            AND solve_status =  #{ solveStatus,jdbcType=
+            VARCHAR }
+        </if>
+        <if test="solvePersonId != null">
+            AND solve_person_id =  #{ solvePersonId,jdbcType=
+            VARCHAR }
+        </if>
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.cz.mutildatasource.entity.Alarm">
+        <if test="id !=null">
+            update t_alarm
+            <set>
+                <if test="id != null">
+                    id =  #{ id,jdbcType= BIGINT },
+                </if>
+                <if test="warnNum != null">
+                    warn_num =  #{ warnNum,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="deviceNum != null">
+                    device_num =  #{ deviceNum,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="faultCode != null">
+                    fault_code =  #{ faultCode,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="warnDetail != null">
+                    warn_detail =  #{ warnDetail,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="warnTime != null">
+                    warn_time =  #{ warnTime,jdbcType= BIGINT },
+                </if>
+                <if test="warnType != null">
+                    warn_type =  #{ warnType,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="warnComment != null">
+                    warn_comment =  #{ warnComment,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="solveType != null">
+                    solve_type =  #{ solveType,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="solvePerson != null">
+                    solve_person =  #{ solvePerson,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="solveTime != null">
+                    solve_time =  #{ solveTime,jdbcType= BIGINT },
+                </if>
+                <if test="solveStatus != null">
+                    solve_status =  #{ solveStatus,jdbcType=
+                        VARCHAR },
+                </if>
+                <if test="solvePersonId != null">
+                    solve_person_id =  #{ solvePersonId,jdbcType=
+                        VARCHAR }
+                </if>
+            </set>
+            where id =  #{ id,jdbcType=BIGINT}
+        </if>
+    </update>
+
+</mapper>
